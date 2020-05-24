@@ -1,4 +1,5 @@
 import maze from '../constants/maze';
+import Pacman from './Pacman';
 
 export const getTileNameName = (id, type, points) => {
   if (id === points.start) {
@@ -41,4 +42,54 @@ export const createGrid = (width, height, value) => {
   };
 
   return outerArr;
+};
+
+const deepCloneArray = array => array.map((elem) => [...elem]);
+
+export const stringPointsToObjects = points => {
+  return {
+    start: {
+      x: +points.start.split('-')[0],
+      y: +points.start.split('-')[1]
+    },
+    target: {
+      x: +points.target.split('-')[0],
+      y: +points.target.split('-')[1]
+    }
+  };
+};
+
+
+export const applyPathToMaze = (target, parent) => {
+  const mazeWithPath = deepCloneArray(maze);
+
+  let { x, y } = target;
+
+  while (x !== -1 && y !== -1) {
+    mazeWithPath[x][y] = 'path';
+    ({ x, y } = parent[x][y]);
+  };
+
+  return mazeWithPath;
+};
+
+export const findPath = (option, points) => {
+  const { start, target } = stringPointsToObjects(points);
+  const pacman = new Pacman(start, target);
+  let parent;
+
+  if (option === 'BFS') {
+    console.time('pacman.searchBFS');
+    parent = pacman.searchBFS();
+    console.timeEnd('pacman.searchBFS');
+  };
+  if (option === 'DFS') {
+    console.time('pacman.searchDFS');
+    parent = pacman.searchDFS();
+    console.timeEnd('pacman.searchDFS');
+  } else {
+    console.log('Unknown path type');
+  }
+
+  return applyPathToMaze(target, parent);
 };

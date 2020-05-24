@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+
+import Button from '../Button/Button';
 import Maze from '../Maze/Maze';
 import maze from '../../constants/maze';
-import './App.scss';
+import { findPath } from '../../helpers/utils';
 
 const App = () => {
   const [points, setPoint] = useState({ start: '', target: '' });
@@ -15,6 +17,10 @@ const App = () => {
     }
   };
 
+  const onSearchSelect = e => {
+    setData(findPath(e.target.value, points));
+  }
+
   return (
     <div className='container'>
       <Maze
@@ -22,6 +28,19 @@ const App = () => {
         points={points}
         handleClick={definePoints}
       />
+
+      <div>
+        <Button
+          value='BFS'
+          text='Breadth First Search'
+          handleClick={onSearchSelect}
+        />
+        <Button
+          value='DFS'
+          text='Depth First Search'
+          handleClick={onSearchSelect}
+        />
+      </div>
     </div>
   );
 };
