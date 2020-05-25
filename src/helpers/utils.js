@@ -79,14 +79,13 @@ export const findPath = (option, points) => {
   let parent;
 
   if (option === 'BFS') {
-    console.time('pacman.BFSSearch');
+    console.time('BFS');
     parent = pacman.BFSSearch();
-    console.timeEnd('pacman.BFSSearch');
-  };
-  if (option === 'DFS') {
-    console.time('pacman.DFSSearch');
+    console.timeEnd('BFS');
+  } else if (option === 'DFS') {
+    console.time('DFS');
     parent = pacman.DFSSearch();
-    console.timeEnd('pacman.DFSSearch');
+    console.timeEnd('DFS');
   } else {
     console.log('Unknown path type');
   }
