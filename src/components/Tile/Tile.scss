@@ -1,0 +1,44 @@
+%cell {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+};
+
+.wall {
+  @extend %cell;
+  background-color: #3957eca2;  
+};
+
+.empty {
+  @extend %cell;
+
+  .food {
+      height: 8px;
+      width: 8px;
+      border-radius: 50%;
+      background-color: #e9d208; 
+  }
+};
+
+.path {
+  @extend %cell;
+  background-color: #e40404;
+};
+
+%pointMarker {
+  @extend %cell;
+  background-size: contain;
+  background-repeat: no-repeat;
+};
+
+.start {
+  @extend %pointMarker;
+  background-image: url(../../assets/images/pacman.png);
+};
+
+.target {
+  @extend %pointMarker;
+  background-image: url(../../assets/images/strawberry.png);
+};

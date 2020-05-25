@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 
 import Button from '../Button/Button';
 import Maze from '../Maze/Maze';
 import maze from '../../constants/maze';
 import { findPath } from '../../helpers/utils';
+
+import './App.scss';
 
 const App = () => {
   const [points, setPoint] = useState({ start: '', target: '' });
@@ -18,30 +20,36 @@ const App = () => {
   };
 
   const onSearchSelect = e => {
-    setData(findPath(e.target.value, points));
+    if (points.start && points.target) {
+      setData(findPath(e.target.value, points));
+    }
   }
 
   return (
-    <div className='container'>
-      <Maze
-        data={data}
-        points={points}
-        handleClick={definePoints}
-      />
-
-      <div>
-        <Button
-          value='BFS'
-          text='Breadth First Search'
-          handleClick={onSearchSelect}
-        />
-        <Button
-          value='DFS'
-          text='Depth First Search'
-          handleClick={onSearchSelect}
+    <Fragment>
+      <div className='container'>
+        <Maze
+          data={data}
+          points={points}
+          handleClick={definePoints}
         />
       </div>
-    </div>
+
+      <div className='container'>
+        <div className='buttonContainer'>
+          <Button
+            value='BFS'
+            text='Breadth First Search'
+            handleClick={onSearchSelect}
+          />
+          <Button
+            value='DFS'
+            text='Depth First Search'
+            handleClick={onSearchSelect}
+          />
+        </div>
+      </div>
+    </Fragment>
   );
 };
 

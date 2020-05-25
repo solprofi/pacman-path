@@ -1,4 +1,4 @@
-import maze from './maze';
+import maze from '../constants/maze';
 import { findNextSteps, createGrid } from './utils';
 
 class Pacman {

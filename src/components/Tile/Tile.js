@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { getTileNameName } from '../../helpers/utils';
+import './Tile.scss';
 
 const Tile = ({ id, type, points, handleClick }) => {
   return (
@@ -9,7 +10,7 @@ const Tile = ({ id, type, points, handleClick }) => {
       className={getTileNameName(id, type, points)}
       onClick={handleClick}
     >
-      <div className='dot' />
+      <div className='food' />
     </div>
   );
 };
